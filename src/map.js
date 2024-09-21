@@ -18,8 +18,6 @@ const marker = new mapboxgl.Marker({
 .setLngLat([-74.5, 40]) // Posición inicial del marcador
 .addTo(map);
 
-
-
 // Obtener el elemento donde mostraremos las coordenadas
 const coordinates = document.getElementById('coordinates');
 
