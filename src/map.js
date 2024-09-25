@@ -1,26 +1,57 @@
-mapboxgl.accessToken =
-  "pk.eyJ1IjoibWFyaW81NTcyIiwiYSI6ImNsbjdxYm5qbzBsYXYycG8ycXliamU3b3kifQ.4j-2bFW0uRXWsk36ji7w_Q";
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFyaW81NTcyIiwiYSI6ImNsbjdxYm5qbzBsYXYycG8ycXliamU3b3kifQ.4j-2bFW0uRXWsk36ji7w_Q';
 
-// Añadir controles de navegación (zoom y rotación)
+// Initialize the map
+const map = new mapboxgl.Map({
+  container: 'map', // Map container ID
+  style: 'mapbox://styles/mapbox/streets-v11', // Style URL
+  center: [-74.5, 40], // Starting position [lng, lat]
+  zoom: 9 // Starting zoom
+});
+
+// Add zoom and rotation controls to the map
 map.addControl(new mapboxgl.NavigationControl());
 
-// Crear un elemento HTML para el marcador
+// Create a marker
 const marker = new mapboxgl.Marker({
-  draggable: true, // Hacer que el marcador sea draggable
-})
-  .setLngLat([-74.5, 40]) // Posición inicial del marcador
-  .addTo(map);
+  draggable: true
+}).setLngLat([-74.5, 40]).addTo(map);
 
-// Función para actualizar las coordenadas en el DOM
-function onDragEnd() {
+// Handle drag end for the marker
+marker.on('dragend', function () {
   const lngLat = marker.getLngLat();
-  console.log(
-    `Latitud: ${lngLat.lat.toFixed(5)}, Longitud: ${lngLat.lng.toFixed(5)}`
-  );
-}
-
-map.on("click", (e) => {
-  marker.setLngLat(e.lngLat);
+  console.log(`Marker dropped at: ${lngLat.lat}, ${lngLat.lng}`);
 });
-// Escuchar el evento de arrastre final del marcador
-marker.on("dragend", onDragEnd);
+
+// Search functionality using Mapbox Geocoding API
+document.getElementById('search-btn').addEventListener('click', function () {
+  const searchText = document.getElementById('search-input').value;
+
+  if (!searchText.trim()) {
+    alert('Please enter a location.');
+    return;
+  }
+
+  // Use Mapbox's Geocoding API to search for the location
+  const geocoderUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(searchText)}.json?access_token=${mapboxgl.accessToken}`;
+
+  fetch(geocoderUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.features.length === 0) {
+        alert('No location found. Please try again.');
+        return;
+      }
+
+      const result = data.features[0];
+      const [lng, lat] = result.geometry.coordinates;
+
+      // Move the marker to the searched location and center the map on it
+      marker.setLngLat([lng, lat]);
+      map.flyTo({ center: [lng, lat], zoom: 14 });
+
+      console.log(`Location found: ${result.place_name}`);
+    })
+    .catch(err => {
+      console.error('Error with geocoding:', err);
+    });
+});
