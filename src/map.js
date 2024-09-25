@@ -22,8 +22,7 @@ marker.on('dragend', function () {
   console.log(`Marker dropped at: ${lngLat.lat}, ${lngLat.lng}`);
 });
 
-// Search functionality using Mapbox Geocoding API
-document.getElementById('search-btn').addEventListener('click', function () {
+function searchLocation() {
   const searchText = document.getElementById('search-input').value;
 
   if (!searchText.trim()) {
@@ -54,4 +53,13 @@ document.getElementById('search-btn').addEventListener('click', function () {
     .catch(err => {
       console.error('Error with geocoding:', err);
     });
+}
+
+// Search functionality using Mapbox Geocoding API
+document.getElementById('search-btn').addEventListener('click', searchLocation());
+// Detect Enter key press in the search input field
+document.getElementById('search-input').addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    searchLocation();
+  }
 });
