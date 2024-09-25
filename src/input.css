@@ -49,6 +49,7 @@ input[type="checkbox"] {
   display: none;
 }
 
+/* Display container */
 .display {
   width: 100%;
   height: 100%;
@@ -58,6 +59,7 @@ input[type="checkbox"] {
   background: white;
 }
 
+/* Label for the toggle switch */
 #milabel {
   width: 150px;
   height: 75px;
@@ -68,6 +70,7 @@ input[type="checkbox"] {
   position: relative;
 }
 
+/* Circle inside the toggle switch */
 .circle {
   width: 60px;
   height: 60px;
@@ -85,22 +88,26 @@ input[type="checkbox"] {
   overflow: hidden;
 }
 
+/* SVG icons */
 svg {
   width: 30px;
   position: absolute;
 }
 
+/* Sun icon for light mode */
 .sun {
   color: #ffd600;
   size: 10%;
   margin-top: 0%;
 }
 
+/* Moon icon for dark mode */
 .moon {
   margin-top: -150%;
   color: white;
 }
 
+/* Styles when the checkbox is checked (dark mode) */
 input[type="checkbox"]:checked + .display {
   background: #2c2c2f;
 }
@@ -123,6 +130,5 @@ input[type="checkbox"]:checked + .display #milabel .circle .sun {
 }
 
 input[type="checkbox"]:checked + .display #milabel .circle .moon {
-  /* lachoso */
   margin-top: 0%;
 }
