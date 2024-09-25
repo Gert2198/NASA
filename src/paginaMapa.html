@@ -1,74 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <!-- Link to the Tailwind CSS output file -->
-  <link rel="stylesheet" href="output.css" />
-  <!-- Mapbox GL JS library -->
-  <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
-  <!-- Mapbox GL CSS file -->
-  <link href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css" rel="stylesheet" />
-</head>
-
-<body>
-  <!-- Main container with a grid layout -->
-  <div id="container" class="grid w-full min-h-screen grid-cols-1 lg:grid-cols-3">
-    <!-- Map section with a gradient background and rounded corners -->
-    <div class="relative hidden overflow-hidden rounded-r-3xl bg-gradient-to-r from-primary to-secondary lg:block lg:col-span-2">
-      <!-- Grid layout for the map and search bar -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="output.css" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v3.6.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="container" class="grid w-full min-h-screen grid-cols-1 lg:grid-cols-3">
+      <div class="grid w-full min-h-screen grid-rows-1 lg:grid-rows-11 lg:col-span-2">
+        <div class="flex items-center justify-center">
+          holi
+        </div>
+        <div class="relative hidden overflow-hidden rounded-r-3xl bg-gradient-to-r from-primary to-secondary lg:block lg:row-span-10">
+        
+          <div id="map" class="absolute top-0 bottom-0 w-full h-full"></div>
+        </div>
+      </div>
+      
+      <script src="map.js"></script>
       <div class="grid w-full min-h-screen grid-rows-1 lg:grid-rows-11">
         <div>
-          <!-- Search bar container with a white background and shadow -->
-          <div class="bg-white shadow-lg w-full absolute top-0 left-0 z-10 p-4 flex items-center space-x-4">
-            <!-- Search input field -->
-            <input id="search-input" type="text" placeholder="Search for a location..."
-              class="flex-grow h-12 px-4 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none text-gray-700" />
-            <!-- Search button with an icon -->
-            <button id="search-btn"
-              class="bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-md flex items-center focus:outline-none">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                class="w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M10 6a4 4 0 100 8 4 4 0 000-8zm8 14l-4-4" />
-              </svg>
-            </button>
+          <input type="checkbox" id="toggle">
+          <div class="display">
+            <label id="milabel" for="toggle">
+              <div class="circle">
+                <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
+                </svg>
+                <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                  <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd" />
+                </svg>                
+              </div>
+            </label>
           </div>
         </div>
-        <!-- Map container -->
-        <div id="map" class="absolute top-0 bottom-0 w-full h-full lg:block lg:row-span-10"></div>
-      </div>
-    </div>
 
-    <!-- Include the map.js script -->
-    <script src="map.js"></script>
-    <!-- Additional content section with a grid layout -->
-    <div class="grid w-full min-h-screen grid-rows-1 lg:grid-rows-11">
-      <div>
-        <!-- Toggle switch for dark mode/light mode -->
-        <input type="checkbox" id="toggle">
-        <div class="display">
-          <label id="milabel" for="toggle">
-            <div class="circle">
-              <!-- Sun icon for light mode -->
-              <svg class="sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 2.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-1.5 0V3a.75.75 0 0 1 .75-.75ZM7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM18.894 6.166a.75.75 0 0 0-1.06-1.06l-1.591 1.59a.75.75 0 1 0 1.06 1.061l1.591-1.59ZM21.75 12a.75.75 0 0 1-.75.75h-2.25a.75.75 0 0 1 0-1.5H21a.75.75 0 0 1 .75.75ZM17.834 18.894a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 1 0-1.061 1.06l1.59 1.591ZM12 18a.75.75 0 0 1 .75.75V21a.75.75 0 0 1-1.5 0v-2.25A.75.75 0 0 1 12 18ZM7.758 17.303a.75.75 0 0 0-1.061-1.06l-1.591 1.59a.75.75 0 0 0 1.06 1.061l1.591-1.59ZM6 12a.75.75 0 0 1-.75.75H3a.75.75 0 0 1 0-1.5h2.25A.75.75 0 0 1 6 12ZM6.697 7.757a.75.75 0 0 0 1.06-1.06l-1.59-1.591a.75.75 0 0 0-1.061 1.06l1.59 1.591Z" />
-              </svg>
-              <!-- Moon icon for dark mode -->
-              <svg class="moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                <path fill-rule="evenodd"
-                  d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z"
-                  clip-rule="evenodd" />
-              </svg>
+        <div class="flex items-center justify-center p-6 sm:p-10 md:p-16 lg:row-span-10">
+          <div class="mx-auto w-full max-w-md space-y-6">
+            <div class="space-y-2 text-center">
+              <h1 class="text-3xl font-bold">Sign Up</h1>
+              <p class="text-muted-foreground">
+                Create your account to get started.
+              </p>
             </div>
-          </label>
+            <form class="space-y-4">
+              <div class="space-y-2">
+                <label
+                  class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  for="name"
+                >
+                  Name
+                </label>
+                <input
+                  class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  id="name"
+                  placeholder="John Doe"
+                />
+              </div>
+              <div class="space-y-2">
+                <label
+                  class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  for="email"
+                >
+                  Email
+                </label>
+                <input
+                  class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  type="email"
+                  id="email"
+                  placeholder="m@example.com"
+                />
+              </div>
+              <div class="bg-stone-800 hover:bg-stone-700 h-10 rounded-md">
+                <button
+                  class="text-center mx-auto text-stone-200 w-full h-full"
+                  type="submit"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
-
+    <script src="modeSwitch.js"></script>
+  </body>
 </html>
